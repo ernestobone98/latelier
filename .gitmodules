@@ -1,0 +1,9 @@
+[submodule "be"]
+	path = be
+	url = git@github.com:ernestobone98/laser-clinic-backend.git
+[submodule "fe"]
+	path = fe
+	url = git@github.com:ernestobone98/laser-clinic-app.git
+[submodule "db"]
+	path = db
+	url = git@github.com:ernestobone98/laser-clinic-db.git
