@@ -12,7 +12,7 @@ services:
     environment:
       - NODE_ENV=production
       - FRONTEND_URL=http://localhost
-      - TNS_ADMIN=/usr/src/app/wallet
+      - TNS_ADMIN=/usr/src/app/.wallet/Wallet_LV5SER1Q61WLKDBA
     env_file:
       - ./be/.env
     networks:
