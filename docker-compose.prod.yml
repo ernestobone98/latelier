@@ -25,7 +25,7 @@ services:
       - /tmp
     volumes:
       - ./be/.env:/usr/src/app/.env:ro
-      - C:\Oracle\Wallet_LV5SER1Q61WLKDBA:/usr/src/app/wallet:ro
+      - /home/ubuntu/latelier/.wallet/Wallet_LV5SER1Q61WLKDBA:/usr/src/app/wallet:ro
 
   frontend:
     build:
