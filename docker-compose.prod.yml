@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./be
+      dockerfile: Dockerfile
+      args:
+        NODE_ENV: production
+    ports:
+      - "8082:8080"
+    environment:
+      - NODE_ENV=production
+      - FRONTEND_URL=http://localhost
+      - TNS_ADMIN=/usr/src/app/wallet
+    env_file:
+      - ./be/.env
+    networks:
+      - app-network
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    tmpfs:
+      - /tmp
+    volumes:
+      - ./be/.env:/usr/src/app/.env:ro
+      - C:\Oracle\Wallet_LV5SER1Q61WLKDBA:/usr/src/app/wallet:ro
+
+  frontend:
+    build:
+      context: ./fe
+      dockerfile: Dockerfile
+      target: production
+    ports:
+      - "80:80"
+    environment:
+      - SERVER_NAME=localhost
+      - PROXY_PASS=http://backend:8080
+    depends_on:
+      - backend
+    networks:
+      - app-network
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+
+# Database service removed - using Oracle Autonomous Database
+
+networks:
+  app-network:
+    driver: bridge

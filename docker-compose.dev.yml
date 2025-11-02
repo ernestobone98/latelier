@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./be
+      dockerfile: Dockerfile
+      args:
+        NODE_ENV: development
+    ports:
+      - "8082:8080"
+    volumes:
+      - ./be:/usr/src/app
+      - /usr/src/app/node_modules
+      - C:\Oracle\Wallet_LV5SER1Q61WLKDBA:/usr/src/app/wallet:ro
+    environment:
+      - NODE_ENV=development
+      - PORT=8080
+      - FRONTEND_URL=http://localhost:5173
+      - TNS_ADMIN=/usr/src/app/wallet
+    env_file:
+      - ./be/.env
+    networks:
+      - app-network
+
+  frontend:
+    build:
+      context: ./fe
+      dockerfile: Dockerfile
+      target: development
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./fe:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+    networks:
+      - app-network
+
+# Database service removed - using Oracle Autonomous Database
+
+networks:
+  app-network:
+    driver: bridge
