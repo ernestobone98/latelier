@@ -1,1 +1,18 @@
-TODO.md
+# Environment variables
+.env
+.env.*
+
+# Node dependencies
+node_modules/
+
+# Oracle Wallet credentials
+*.zip
+*.sso
+*.p12
+*.pem
+*.jks
+ojdbc.properties
+sqlnet.ora
+tnsnames.ora
+truststore.jks
+wallet/
